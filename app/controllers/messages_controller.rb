@@ -1,5 +1,4 @@
 class MessagesController < ApplicationController
-
   def index
     @message = Message.new
     @room = Room.find(params[:room_id])
@@ -15,6 +14,12 @@ class MessagesController < ApplicationController
       @messages = @room.messages.includes(:user)
       render :index, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    room = Room.find(params[:id])
+    room.destroy
+    redirect_to root_path
   end
 
   private
